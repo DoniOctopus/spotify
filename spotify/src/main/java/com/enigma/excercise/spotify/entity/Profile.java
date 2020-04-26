@@ -26,8 +26,7 @@ public class Profile {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToOne
-    @JoinColumn(name = "account_id")
+    @OneToOne(mappedBy = "profile")
     private Account account;
 
 

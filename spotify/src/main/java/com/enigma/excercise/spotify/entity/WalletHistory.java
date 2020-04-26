@@ -26,7 +26,6 @@ public class WalletHistory {
 
     @ManyToOne
     @JoinColumn(name = "wallet_id")
-    @JsonIgnoreProperties("walletHistory")
     private Wallet wallet;
 
 

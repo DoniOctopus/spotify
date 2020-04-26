@@ -13,4 +13,6 @@ public interface ArtistService {
     public Artist getArtist(String id);
     public List<Artist> getAllArtist();
     public void deleteArtist(String id);
+    public void saveArtist(MultipartFile file, String requestBody) throws IOException;
+    public Page<Artist> searchArtist(Artist artist, Pageable pageable);
 }

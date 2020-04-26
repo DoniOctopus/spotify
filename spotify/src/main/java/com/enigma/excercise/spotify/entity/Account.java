@@ -18,10 +18,10 @@ public class Account {
     private Boolean isActive;
 
     @OneToMany(mappedBy = "author")
-    @JsonBackReference
     private List<Playlist> playlists = new ArrayList<>();
 
-    @OneToOne(mappedBy = "account")
+    @OneToOne
+    @JoinColumn(name = "account_id")
     private Profile profile;
 
     @OneToOne(mappedBy = "owner")

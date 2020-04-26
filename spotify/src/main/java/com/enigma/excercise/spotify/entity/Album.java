@@ -1,7 +1,6 @@
 package com.enigma.excercise.spotify.entity;
 
 import com.enigma.excercise.spotify.enums.Gender;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -26,7 +25,6 @@ public class Album {
     private Gender gender;
 
     @OneToMany(mappedBy = "album")
-    @JsonBackReference
     private List<Song> songs = new ArrayList<>();
 
     public Album(String title, String description, Integer releaseYear, Double discount, String image) {

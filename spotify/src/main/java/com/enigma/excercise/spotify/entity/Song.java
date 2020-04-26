@@ -44,7 +44,6 @@ public class Song {
     private List<Playlist> playlists = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
-    @JsonBackReference
     private List<Transaction> transactions = new ArrayList<>();
 
 

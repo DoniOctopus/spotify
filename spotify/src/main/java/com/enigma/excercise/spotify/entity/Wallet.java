@@ -23,11 +23,9 @@ public class Wallet {
     private Account owner;
 
     @OneToMany(mappedBy = "wallet")
-    @JsonBackReference
     private List<Transaction> transactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "wallet")
-    @JsonBackReference
     private List<WalletHistory>histories = new ArrayList<>();
 
 

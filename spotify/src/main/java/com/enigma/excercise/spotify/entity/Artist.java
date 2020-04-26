@@ -1,6 +1,6 @@
 package com.enigma.excercise.spotify.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.enigma.excercise.spotify.enums.Gender;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,18 +18,19 @@ public class Artist {
     private String id;
     private String name;
     private Date date;
-    private String Gender;
+
+    @Enumerated(EnumType.STRING)
+    private Gender Gender;
     private  String biography;
     private String photo;
 
     @OneToMany(mappedBy = "artist")
-    @JsonBackReference
     private List<Song>songs = new ArrayList<>();
 
     public Artist() {
     }
 
-    public Artist(String name, Date date, String gender, String biography, String photo) {
+    public Artist(String name, Date date, com.enigma.excercise.spotify.enums.Gender gender, String biography, String photo) {
         this.name = name;
         this.date = date;
         Gender = gender;
@@ -61,11 +62,11 @@ public class Artist {
         this.date = date;
     }
 
-    public String getGender() {
+    public com.enigma.excercise.spotify.enums.Gender getGender() {
         return Gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(com.enigma.excercise.spotify.enums.Gender gender) {
         Gender = gender;
     }
 

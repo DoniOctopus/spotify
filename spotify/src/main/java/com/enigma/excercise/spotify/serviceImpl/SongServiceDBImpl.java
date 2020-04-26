@@ -5,6 +5,8 @@ import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.SongRepository;
 import com.enigma.excercise.spotify.service.SongService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,5 +41,11 @@ public class SongServiceDBImpl implements SongService {
     @Override
     public void deletSong(String id) {
         songRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Song> searchSong(Song song, Pageable pageable) {
+        Page<Song>songs =songRepository.findAllByTitleContains(song.getTitle(), pageable);
+        return songs;
     }
 }
