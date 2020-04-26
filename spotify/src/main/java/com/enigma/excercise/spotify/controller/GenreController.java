@@ -19,7 +19,7 @@ public class GenreController {
         genreService.saveGenre(genre);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/genre/{id}")
     public Genre getGenreById(@PathVariable String id){
         return genreService.getGenre(id);
     }

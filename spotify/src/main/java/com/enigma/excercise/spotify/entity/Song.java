@@ -1,12 +1,12 @@
 package com.enigma.excercise.spotify.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mst_song")
@@ -47,11 +47,10 @@ public class Song {
     private List<Transaction> transactions = new ArrayList<>();
 
 
-    public Song(String title, Integer releaseYear, Integer duration, Double price) {
+    public Song(String title, Integer releaseYear) {
         this.title = title;
         this.releaseYear = releaseYear;
-        this.duration = duration;
-        this.price = price;
+
     }
 
     public Song() {
@@ -146,5 +145,22 @@ public class Song {
                 ", duration=" + duration +
                 ", price=" + price +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+        Song song = (Song) o;
+        return id.equals(song.id) &&
+                title.equals(song.title) &&
+                releaseYear.equals(song.releaseYear) &&
+                duration.equals(song.duration) &&
+                price.equals(song.price);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, releaseYear, duration, price);
     }
 }

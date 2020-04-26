@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mst_artist")
@@ -17,6 +18,8 @@ public class Artist {
     @GenericGenerator(name = "artist_uuid", strategy = "uuid")
     private String id;
     private String name;
+
+//    @Temporal(TemporalType.DATE)
     private Date date;
 
     @Enumerated(EnumType.STRING)
@@ -30,12 +33,9 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String name, Date date, com.enigma.excercise.spotify.enums.Gender gender, String biography, String photo) {
+    public Artist(String name, Date date) {
         this.name = name;
         this.date = date;
-        Gender = gender;
-        this.biography = biography;
-        this.photo = photo;
     }
 
     public String getId() {
@@ -104,5 +104,23 @@ public class Artist {
                 ", biography='" + biography + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Artist)) return false;
+        Artist artist = (Artist) o;
+        return id.equals(artist.id) &&
+                name.equals(artist.name) &&
+                date.equals(artist.date) &&
+                Gender == artist.Gender &&
+                biography.equals(artist.biography) &&
+                photo.equals(artist.photo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name,date,Gender, biography, photo);
     }
 }

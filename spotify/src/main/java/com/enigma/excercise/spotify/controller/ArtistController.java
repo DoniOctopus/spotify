@@ -13,17 +13,17 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/artist")
 public class ArtistController {
 
     @Autowired
     ArtistService artistService;
+
     @PostMapping("/artist")
     public void saveArtist(@RequestBody Artist artist) {
         artistService.saveArtist(artist);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/artist/{id}")
     public Artist getArtistById(@PathVariable String id){
         return artistService.getArtist(id);
     }

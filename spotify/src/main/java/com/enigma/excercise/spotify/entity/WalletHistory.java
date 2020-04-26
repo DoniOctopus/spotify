@@ -1,8 +1,7 @@
 package com.enigma.excercise.spotify.entity;
 
-import com.enigma.excercise.spotify.enums.Gender;
+
 import com.enigma.excercise.spotify.enums.HistoryTypeEnum;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

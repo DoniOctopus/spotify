@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mst_playlist")
@@ -86,5 +87,20 @@ public class Playlist {
                 ", name='" + name + '\'' +
                 ", isPublic=" + isPublic +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Playlist)) return false;
+        Playlist playlist = (Playlist) o;
+        return id.equals(playlist.id) &&
+                name.equals(playlist.name) &&
+                isPublic.equals(playlist.isPublic);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, isPublic);
     }
 }

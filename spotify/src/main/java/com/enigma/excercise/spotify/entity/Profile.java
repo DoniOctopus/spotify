@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Entity
@@ -30,14 +31,9 @@ public class Profile {
     private Account account;
 
 
-    public Profile(String firstName, String middleName, String lastName, String email, String phone, Date birthDate, String location) {
+    public Profile(String firstName,  Date birthDate) {
         this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
         this.birthDate = birthDate;
-        this.location = location;
     }
 
     public Profile() {
@@ -121,6 +117,25 @@ public class Profile {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Profile)) return false;
+        Profile profile = (Profile) o;
+        return id.equals(profile.id) &&
+                firstName.equals(profile.firstName) &&
+                middleName.equals(profile.middleName) &&
+                lastName.equals(profile.lastName) &&
+                email.equals(profile.email) &&
+                phone.equals(profile.phone) &&
+                birthDate.equals(profile.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, middleName, lastName, email, phone, birthDate);
     }
 
     @Override
