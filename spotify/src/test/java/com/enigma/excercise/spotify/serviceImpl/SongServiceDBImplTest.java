@@ -20,7 +20,7 @@ class SongServiceDBImplTest {
     @Autowired
     SongRepository songRepository;
     @Autowired
-    SongService songServiceDB;
+    SongService songService;
 
     @BeforeEach
     public void cleanUp(){
@@ -30,16 +30,14 @@ class SongServiceDBImplTest {
     @Test
     void saveSong_shouldAdd_1Data_inDB_whenSongSaved() {
         Song song = new Song("Berdikstraksi",2000);
-        songServiceDB.saveSong(song);
+        songService.saveSong(song);
         assertEquals(1,songRepository.findAll().size());
     }
 
     @Test
-    void saveSong_shouldThrowException_whenSongIsExist() {
-        Song song = new Song("Berdikstraksi",2000);
-        songRepository.save(song);
-        assertThrows(ResourceNotFoundExeption.class,()->{
-            songServiceDB.saveSong(song);
+    void getSong_ShouldThrowExecption_when_givenIdNotExist() {
+        assertThrows(ResourceNotFoundExeption.class, () -> {
+            songService.getSong("asal");
         });
     }
 
@@ -49,7 +47,7 @@ class SongServiceDBImplTest {
         Song song1 = new Song("Diambang Pilu",2000);
         songRepository.save(song);
         songRepository.save(song1);
-        songServiceDB.deletSong(song1.getId());
+        songService.deletSong(song1.getId());
         assertEquals(1,songRepository.findAll().size());
     }
 
@@ -59,7 +57,7 @@ class SongServiceDBImplTest {
         Song song2 = new Song("Diambang Pilu",2000);
         songRepository.save(song);
         songRepository.save(song2);
-        assertEquals(2, songServiceDB.getAllSong().size());
+        assertEquals(2, songService.getAllSong().size());
     }
 
 
@@ -73,7 +71,7 @@ class SongServiceDBImplTest {
         song3.setTitle("le");
         song3.setReleaseYear(2002);
         song3.setDuration(420);
-        assertEquals(0, songServiceDB.searchSong(song3, PageRequest.of(0,5)).getTotalElements());
+        assertEquals(0, songService.searchSong(song3, PageRequest.of(0,5)).getTotalElements());
     }
 
 

@@ -1,6 +1,7 @@
 package com.enigma.excercise.spotify.serviceImpl;
 
 import com.enigma.excercise.spotify.entity.Playlist;
+import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.PlaylistRepository;
 import com.enigma.excercise.spotify.service.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,12 @@ public class PlaylistServiceDBImpl implements PlaylistService {
 
     @Override
     public Playlist getPlaylist(String id) {
-        Playlist playlist = playlistRepository.findById(id).get();
+        Playlist playlist = new Playlist();
+        if (playlistRepository.findById(id).isPresent()){
+            playlist = playlistRepository.findById(id).get();
+        }else{
+            throw new ResourceNotFoundExeption(id,playlist);
+        }
         return playlist;
     }
 

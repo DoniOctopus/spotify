@@ -2,6 +2,7 @@ package com.enigma.excercise.spotify.serviceImpl;
 
 import com.enigma.excercise.spotify.FileUtil.FileUtilInterface;
 import com.enigma.excercise.spotify.entity.Album;
+import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.AlbumRepository;
 import com.enigma.excercise.spotify.service.AlbumService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,7 +35,12 @@ public class AlbumServiceDBImpl implements AlbumService {
 
     @Override
     public Album getAlbum(String id) {
-        Album album = albumRepository.findById(id).get();
+        Album album = new Album();
+        if (albumRepository.findById(id).isPresent()){
+            album = albumRepository.findById(id).get();
+        }else{
+            throw new ResourceNotFoundExeption(id,album);
+        }
         return album;
     }
 

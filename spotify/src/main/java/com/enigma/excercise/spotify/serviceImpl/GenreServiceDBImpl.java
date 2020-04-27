@@ -4,7 +4,6 @@ import com.enigma.excercise.spotify.entity.Genre;
 import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.GenreRepository;
 import com.enigma.excercise.spotify.service.GenreService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,12 @@ import java.util.List;
 @Service
 public class GenreServiceDBImpl implements GenreService {
 
-    @Autowired
+    final
     GenreRepository genreRepository;
+
+    public GenreServiceDBImpl(GenreRepository genreRepository) {
+        this.genreRepository = genreRepository;
+    }
 
     @Override
     public void saveGenre(Genre genre) {

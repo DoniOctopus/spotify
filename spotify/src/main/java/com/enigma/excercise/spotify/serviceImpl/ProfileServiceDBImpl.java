@@ -1,6 +1,7 @@
 package com.enigma.excercise.spotify.serviceImpl;
 
 import com.enigma.excercise.spotify.entity.Profile;
+import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.ProfileRepository;
 import com.enigma.excercise.spotify.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,12 @@ public class ProfileServiceDBImpl implements ProfileService {
 
     @Override
     public Profile getProfile(String id) {
-        Profile profile = profileRepository.findById(id).get();
+        Profile profile = new Profile();
+        if ( profileRepository.findById(id).isPresent()){
+            profile = profileRepository.findById(id).get();
+        }else{
+            throw new ResourceNotFoundExeption(id,profile);
+        }
         return profile;
     }
 
