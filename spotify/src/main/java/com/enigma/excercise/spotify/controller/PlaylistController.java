@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
 public class PlaylistController {
 
     @Autowired
@@ -20,7 +19,7 @@ public class PlaylistController {
         playlistService.savePlaylist(playlist);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/playlist/{id}")
     public Playlist getPlaylistById(@PathVariable String id){
         return playlistService.getPlaylist(id);
     }

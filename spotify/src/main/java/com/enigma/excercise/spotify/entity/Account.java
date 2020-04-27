@@ -1,6 +1,6 @@
 package com.enigma.excercise.spotify.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,6 +15,8 @@ public class Account {
     @GeneratedValue(generator = "account_uuid",strategy = GenerationType.IDENTITY)
     @GenericGenerator(name = "account_uuid", strategy = "uuid")
     private String id;
+
+    @JsonProperty
     private Boolean isActive;
 
     @OneToMany(mappedBy = "author")

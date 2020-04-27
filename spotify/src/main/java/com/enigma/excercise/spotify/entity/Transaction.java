@@ -16,6 +16,7 @@ public class Transaction {
     @GenericGenerator(name = "transaction_uuid", strategy = "uuid")
     private String id;
     private Timestamp trxDate;
+    private Double amount;
     private Double albumDisc;
 
     @ManyToOne
@@ -75,6 +76,14 @@ public class Transaction {
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 
     @Override

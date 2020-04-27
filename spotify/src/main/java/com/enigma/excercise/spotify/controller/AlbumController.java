@@ -30,7 +30,7 @@ public class AlbumController {
         albumService.deletAlbum(id);
     }
 
-    @PostMapping
+    @PostMapping("/album/photo")
     public void saveAlbum(@RequestPart MultipartFile file, @RequestPart String requesBody) throws IOException{
         albumService.saveAlbum(file, requesBody);
     }

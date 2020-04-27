@@ -1,7 +1,9 @@
 package com.enigma.excercise.spotify.controller;
 
 import com.enigma.excercise.spotify.FileUtil.FileUtilInterface;
+import com.enigma.excercise.spotify.entity.Album;
 import com.enigma.excercise.spotify.entity.Artist;
+import com.enigma.excercise.spotify.service.AlbumService;
 import com.enigma.excercise.spotify.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -23,6 +25,9 @@ public class FileController {
 
     @Autowired
     FileUtilInterface fileUtil;
+
+    @Autowired
+    AlbumService albumService;
 
     @Autowired
     ArtistService artistService;
@@ -49,5 +54,20 @@ public class FileController {
                 .body(resource);
     }
 
-
+    @GetMapping("/albums/photos/{id}")
+    public ResponseEntity<Resource> getAlbumPhotos(@PathVariable String id, HttpServletRequest request) throws FileNotFoundException {
+        Album album = albumService.getAlbum(id);
+        if (album == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+        Resource resource = fileUtil.read(album.getImage());
+        String contentType;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "File not found");
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename =\"" + resource.getFilename() + "\"")
+                .body(resource);
+    }
 }

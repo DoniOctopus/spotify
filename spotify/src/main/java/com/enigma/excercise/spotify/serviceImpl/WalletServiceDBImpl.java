@@ -5,6 +5,7 @@ import com.enigma.excercise.spotify.entity.WalletHistory;
 import com.enigma.excercise.spotify.enums.HistoryTypeEnum;
 import com.enigma.excercise.spotify.exception.ResourceNotFoundExeption;
 import com.enigma.excercise.spotify.repository.WalletRepository;
+import com.enigma.excercise.spotify.service.AccountService;
 import com.enigma.excercise.spotify.service.WalletHistoryService;
 import com.enigma.excercise.spotify.service.WalletService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,11 @@ public class WalletServiceDBImpl implements WalletService {
     @Autowired
     WalletRepository walletRepository;
 
+    @Autowired
     WalletHistoryService walletHistoryService;
+
+    @Autowired
+    AccountService accountService;
 
     @Override
     public void saveWallet(Wallet wallet, Double topUpBalance) {
@@ -71,4 +76,29 @@ public class WalletServiceDBImpl implements WalletService {
     public void deleteWallet(Wallet wallet) {
         walletRepository.delete(wallet);
     }
+
+    @Override
+    public void transactionlWallet(Wallet wallet, Double amount) {
+        this.isOwnerActive(wallet);
+        //Set Wallet
+        wallet.setBalance(wallet.getBalance() - amount);
+        //Wallet History
+        WalletHistory walletHistory = new WalletHistory();
+        //Set Wallet History
+        walletHistory.setAmount(amount);
+        walletHistory.setTrxDate(new Timestamp(new Date().getTime()));
+        walletHistory.setType(HistoryTypeEnum.PAYMENT);
+        walletHistory.setWallet(wallet);
+        walletRepository.save(wallet);
+        walletHistoryService.saveWalletHistory(walletHistory);
+    }
+
+    public Boolean isOwnerActive(Wallet wallet){
+        Boolean isActive = accountService.getAccount(wallet.getOwner().getId()).getActive();
+        if(!isActive){
+            throw new ResourceNotFoundExeption(wallet.getOwner().getId());
+        }
+        return true;
+    }
+
 }

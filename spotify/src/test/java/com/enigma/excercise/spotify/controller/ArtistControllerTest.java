@@ -15,10 +15,6 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class ArtistControllerTest {
@@ -33,7 +29,7 @@ class ArtistControllerTest {
     @Test
     void saveDataArtis_should_response_OK200() throws Exception {
         ObjectMapper objectMapper=new ObjectMapper();
-        Artist artist=new Artist("Doni",new Date());
+        Artist artist=new Artist("Doni",2000);
         RequestBuilder requestBuilder= MockMvcRequestBuilders.post("/artist")
                 .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(artist));
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
@@ -43,7 +39,7 @@ class ArtistControllerTest {
     void saveArtist_should_respone_Artist_withIdNotNull() throws Exception{
         ObjectMapper objectMapper = new ObjectMapper();
 
-        Artist artist = new Artist("doni",new Date());
+        Artist artist = new Artist("doni",2000);
 
         RequestBuilder requestBuilder =
                 MockMvcRequestBuilders.post("/artist")
@@ -63,7 +59,7 @@ class ArtistControllerTest {
     @Test
     void deleteArtis_should_callArtisService_deleteArtis_once() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Artist artist = new Artist("Doni",new Date());
+        Artist artist = new Artist("Doni",2000);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/artist/1");
         mockMvc.perform(requestBuilder);
         Mockito.verify(artistService, Mockito.times(1)).deleteArtist("1");
@@ -72,7 +68,7 @@ class ArtistControllerTest {
     @Test
     void deleteArtis_should_response_OK200() throws Exception{
         ObjectMapper objectMapper=new ObjectMapper();
-        Artist artist=new Artist("Doni",new Date());
+        Artist artist=new Artist("Doni",2000);
         RequestBuilder requestBuilder1=MockMvcRequestBuilders.delete("/artist/1");
         mockMvc.perform(requestBuilder1).andExpect(MockMvcResultMatchers.status().isOk());
     }

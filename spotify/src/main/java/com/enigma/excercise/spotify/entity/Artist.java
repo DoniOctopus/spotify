@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,8 +18,8 @@ public class Artist {
     private String id;
     private String name;
 
-//    @Temporal(TemporalType.DATE)
-    private Date date;
+
+    private Integer debutYear;
 
     @Enumerated(EnumType.STRING)
     private Gender Gender;
@@ -33,9 +32,9 @@ public class Artist {
     public Artist() {
     }
 
-    public Artist(String name, Date date) {
+    public Artist(String name, Integer debutYear) {
         this.name = name;
-        this.date = date;
+        this.debutYear = debutYear;
     }
 
     public String getId() {
@@ -54,12 +53,12 @@ public class Artist {
         this.name = name;
     }
 
-    public Date getDate() {
-        return date;
+    public Integer getDebutYear() {
+        return debutYear;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDebutYear(Integer debutYear) {
+        this.debutYear = debutYear;
     }
 
     public com.enigma.excercise.spotify.enums.Gender getGender() {
@@ -97,10 +96,10 @@ public class Artist {
     @Override
     public String toString() {
         return "Artist{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", date=" + date +
-                ", Gender='" + Gender + '\'' +
+                ", debutYear=" + debutYear +
+                ", Gender=" + Gender +
                 ", biography='" + biography + '\'' +
                 ", photo='" + photo + '\'' +
                 '}';
@@ -113,7 +112,7 @@ public class Artist {
         Artist artist = (Artist) o;
         return id.equals(artist.id) &&
                 name.equals(artist.name) &&
-                date.equals(artist.date) &&
+                debutYear.equals(artist.debutYear) &&
                 Gender == artist.Gender &&
                 biography.equals(artist.biography) &&
                 photo.equals(artist.photo);
@@ -121,6 +120,6 @@ public class Artist {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name,date,Gender, biography, photo);
+        return Objects.hash(id, name, debutYear, Gender, biography, photo);
     }
 }

@@ -10,4 +10,5 @@ public interface WalletService {
     public Wallet getWallet(String id);
     public List<Wallet> getAllWallet();
     public void deleteWallet(Wallet wallet);
+    public void transactionlWallet(Wallet wallet, Double amount);
 }

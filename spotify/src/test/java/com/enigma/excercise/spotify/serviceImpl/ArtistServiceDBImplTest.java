@@ -9,9 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class ArtistServiceDBImplTest {
@@ -29,22 +28,22 @@ class ArtistServiceDBImplTest {
 
     @Test
     void saveArtis_ShouldCreate_1_In_DB_When_Artis_Saved() {
-        Artist artis = new Artist("Doni", new Date());
+        Artist artis = new Artist("Doni",2000);
         artisRepository.save(artis);
         assertEquals(1, artisRepository.findAll().size());
     }
 
     @Test
     void saveArtis_ShouldCreate_2_In_DB_When_Artis_Saved() {
-        Artist artis = new Artist("Doni", new Date());
-        Artist artis2 = new Artist("Maul", new Date());
+        Artist artis = new Artist("Doni", 2000);
+        Artist artis2 = new Artist("Maul", 2000);
         artisRepository.save(artis);
         assertEquals(1, artisRepository.findAll().size());
     }
 
     @Test
     void saveArtis_ShouldCreate_Save_CorrectName_Artis_InDB_When_Artis_Saved() {
-        Artist expectedArtis = new Artist("Doni", new Date());
+        Artist expectedArtis = new Artist("Doni", 2000);
         expectedArtis = artisServiceDB.saveArtist(expectedArtis);
         assertEquals(expectedArtis, artisRepository.findById(expectedArtis.getId()));
     }
@@ -59,8 +58,8 @@ class ArtistServiceDBImplTest {
 
     @Test
     void deleteArtist() {
-        Artist artis = new Artist("Maul", new Date());
-        Artist artis2 = new Artist("Doni", new Date());
+        Artist artis = new Artist("Maul", 2000);
+        Artist artis2 = new Artist("Doni", 2000);
         artisRepository.save(artis);
         artisRepository.save(artis2);
         artisServiceDB.deleteArtist(artis2.getId());
@@ -69,8 +68,8 @@ class ArtistServiceDBImplTest {
 
     @Test
     void getAllDataAartis_SouldBe_2_In_DB_When_DataInDBIs_2() {
-        Artist artis = new Artist("Maul", new Date());
-        Artist artis2 = new Artist("Doni", new Date());
+        Artist artis = new Artist("Maul", 2000);
+        Artist artis2 = new Artist("Doni",2000);
         artisRepository.save(artis);
         artisRepository.save(artis2);
         assertEquals(2, artisServiceDB.getAllArtist().size());
