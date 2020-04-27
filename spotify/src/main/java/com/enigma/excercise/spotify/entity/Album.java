@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "mst_album")
@@ -27,12 +28,8 @@ public class Album {
     @OneToMany(mappedBy = "album")
     private List<Song> songs = new ArrayList<>();
 
-    public Album(String title, String description, Integer releaseYear, Double discount, String image) {
+    public Album(String title) {
         this.title = title;
-        this.description = description;
-        this.releaseYear = releaseYear;
-        this.discount = discount;
-        this.image = image;
     }
 
     public Album() {
@@ -112,5 +109,23 @@ public class Album {
                 ", discount=" + discount +
                 ", image='" + image + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Album)) return false;
+        Album album = (Album) o;
+        return id.equals(album.id) &&
+                title.equals(album.title) &&
+                description.equals(album.description) &&
+                releaseYear.equals(album.releaseYear) &&
+                discount.equals(album.discount) &&
+                image.equals(album.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, releaseYear, discount, image);
     }
 }

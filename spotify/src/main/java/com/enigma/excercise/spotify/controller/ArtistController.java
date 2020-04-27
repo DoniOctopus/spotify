@@ -33,9 +33,9 @@ public class ArtistController {
         artistService.deleteArtist(id);
     }
 
-    @PostMapping
-    public void saveArtist(@RequestPart MultipartFile file, @RequestPart String requestBody) throws IOException {
-        artistService.saveArtist(file, requestBody);
+    @PostMapping("/artist/photo")
+    public void saveFileArtist(@RequestPart MultipartFile file, @RequestPart String requestBody) throws IOException {
+        artistService.saveFileArtist(file, requestBody);
     }
 
     @GetMapping("/artist")

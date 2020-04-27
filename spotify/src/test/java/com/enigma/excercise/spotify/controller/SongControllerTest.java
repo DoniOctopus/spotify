@@ -1,7 +1,7 @@
 package com.enigma.excercise.spotify.controller;
 
-import com.enigma.excercise.spotify.entity.Artist;
-import com.enigma.excercise.spotify.service.ArtistService;
+import com.enigma.excercise.spotify.entity.Song;
+import com.enigma.excercise.spotify.service.SongService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,69 +15,64 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest
 @AutoConfigureMockMvc
-class ArtistControllerTest {
+class SongControllerTest {
+
 
     @MockBean
-    ArtistService artistService;
+    SongService songService;
 
     @Autowired
     MockMvc mockMvc;
 
+    @Test
+    void getSongById() {
+
+    }
 
     @Test
-    void saveDataArtis_should_response_OK200() throws Exception {
+    void saveDataSong_should_response_OK200() throws Exception {
         ObjectMapper objectMapper=new ObjectMapper();
-        Artist artist=new Artist("Doni",new Date());
-        RequestBuilder requestBuilder= MockMvcRequestBuilders.post("/artist")
-                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(artist));
+        Song song = new Song("Berdikstraksi",2000);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/song")
+                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(song));
         mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void saveArtist_should_respone_Artist_withIdNotNull() throws Exception{
+    void saveSong_should_respone_Song_withIdNotNull() throws Exception{
         ObjectMapper objectMapper = new ObjectMapper();
-
-        Artist artist = new Artist("doni",new Date());
+        Song song = new Song("Berdikstraksi",2000);
 
         RequestBuilder requestBuilder =
-                MockMvcRequestBuilders.post("/artist")
+                MockMvcRequestBuilders.post("/song")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(artist));
+                        .content(objectMapper.writeValueAsString(song));
 
         String response = mockMvc.perform(requestBuilder).andReturn().getResponse().getContentAsString();
 
         System.out.println("ini LOH" + response);
-
     }
 
     @Test
-    void getArtistById() {
-    }
-
-    @Test
-    void deleteArtis_should_callArtisService_deleteArtis_once() throws Exception {
+    void deleteSong_should_callSongService_deleteSong_once() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
-        Artist artist = new Artist("Doni",new Date());
-        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/artist/1");
+        Song song = new Song("Berdikstraksi",2000);
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/song/1");
         mockMvc.perform(requestBuilder);
-        Mockito.verify(artistService, Mockito.times(1)).deleteArtist("1");
+        Mockito.verify(songService, Mockito.times(1)).deletSong("1");
     }
 
     @Test
-    void deleteArtis_should_response_OK200() throws Exception{
+    void deleteSong_should_response_OK200() throws Exception{
         ObjectMapper objectMapper=new ObjectMapper();
-        Artist artist=new Artist("Doni",new Date());
-        RequestBuilder requestBuilder1=MockMvcRequestBuilders.delete("/artist/1");
+        Song song = new Song("Berdikstraksi",2000);
+        RequestBuilder requestBuilder1=MockMvcRequestBuilders.delete("/song/1");
         mockMvc.perform(requestBuilder1).andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void searchByName() {
+    void searchByTitle() {
     }
 }

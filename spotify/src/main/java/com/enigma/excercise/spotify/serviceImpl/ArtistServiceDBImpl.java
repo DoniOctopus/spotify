@@ -58,7 +58,7 @@ public class ArtistServiceDBImpl implements ArtistService {
     }
 
     @Override
-    public void saveArtist(MultipartFile file, String requestBody) throws IOException {
+    public void saveFileArtist(MultipartFile file, String requestBody) throws IOException {
         Artist artist = objectMapper.readValue(requestBody, Artist.class);
         try {
             artistRepository.save(artist);
