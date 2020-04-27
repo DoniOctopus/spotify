@@ -21,12 +21,12 @@ public class Transaction {
 
     @ManyToOne
     @JoinColumn(name = "song_id")
-    @JsonIgnoreProperties("songs")
+    @JsonIgnoreProperties("transactions")
     private Song item;
 
     @ManyToOne
     @JoinColumn(name = "wallet_id")
-    @JsonIgnoreProperties("transcation")
+    @JsonIgnoreProperties("transactions")
     private Wallet wallet;
 
 

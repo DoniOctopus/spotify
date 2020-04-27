@@ -1,6 +1,6 @@
 package com.enigma.excercise.spotify.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,12 +20,15 @@ public class Wallet {
 
     @OneToOne
     @JoinColumn(name = "account_id")
+    @JsonIgnoreProperties("wallet")
     private Account owner;
 
     @OneToMany(mappedBy = "wallet")
+    @JsonIgnoreProperties("wallet")
     private List<Transaction> transactions = new ArrayList<>();
 
     @OneToMany(mappedBy = "wallet")
+    @JsonIgnoreProperties("wallet")
     private List<WalletHistory>histories = new ArrayList<>();
 
 

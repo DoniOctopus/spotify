@@ -2,6 +2,7 @@ package com.enigma.excercise.spotify.entity;
 
 
 import com.enigma.excercise.spotify.enums.HistoryTypeEnum;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class WalletHistory {
 
     @ManyToOne
     @JoinColumn(name = "wallet_id")
+    @JsonIgnoreProperties("walletHistory")
     private Wallet wallet;
 
 

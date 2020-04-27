@@ -44,6 +44,7 @@ public class Song {
     private List<Playlist> playlists = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
+    @JsonIgnoreProperties("song")
     private List<Transaction> transactions = new ArrayList<>();
 
 
