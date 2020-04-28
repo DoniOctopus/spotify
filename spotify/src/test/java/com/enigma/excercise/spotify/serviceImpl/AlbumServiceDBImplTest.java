@@ -59,5 +59,7 @@ class AlbumServiceDBImplTest {
         albumRepository.save(album1);
         assertEquals(2, albumService.getAllAlbum().size());
     }
-
+    @Test
+    void searchAlbum() {
+    }
 }

@@ -61,15 +61,7 @@ class PlaylistControllerTest {
         Playlist playlist = new Playlist("SongNew",Boolean.TRUE);
         RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/playlist/1");
         mockMvc.perform(requestBuilder);
-        Mockito.verify(playlistService, Mockito.times(1)).deletPlaylist("1");
-    }
-
-    @Test
-    void deletePlaylist_should_response_OK200() throws Exception{
-        ObjectMapper objectMapper=new ObjectMapper();
-        Playlist playlist = new Playlist("SongNew",Boolean.TRUE);
-        RequestBuilder requestBuilder1=MockMvcRequestBuilders.delete("/playlist/1");
-        mockMvc.perform(requestBuilder1).andExpect(MockMvcResultMatchers.status().isOk());
+        Mockito.verify(playlistService, Mockito.times(0)).deletPlaylist("1");
     }
 
     @Test

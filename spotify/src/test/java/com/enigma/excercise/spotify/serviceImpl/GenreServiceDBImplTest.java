@@ -71,5 +71,7 @@ class GenreServiceDBImplTest {
         assertEquals(0, genreService.searchGenre(genre3, PageRequest.of(0,5)).getTotalElements());
     }
 
-
+    @Test
+    void searchGenre() {
+    }
 }

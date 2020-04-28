@@ -27,6 +27,11 @@ public class WalletServiceDBImpl implements WalletService {
     AccountService accountService;
 
     @Override
+    public void saveWallet(Wallet wallet) {
+       walletRepository.save(wallet);
+    }
+
+    @Override
     public void saveWallet(Wallet wallet, Double topUpBalance) {
         WalletHistory walletHistory = new WalletHistory();
         wallet=walletRepository.findById(wallet.getId()).get();

@@ -70,9 +70,11 @@ class SongServiceDBImplTest {
         Song song3=new Song();
         song3.setTitle("le");
         song3.setReleaseYear(2002);
-        song3.setDuration(420);
-        assertEquals(0, songService.searchSong(song3, PageRequest.of(0,5)).getTotalElements());
+        songRepository.save(song3);
+        assertEquals(1, songService.searchSong(song3, PageRequest.of(0,5)).getTotalElements());
     }
-
+    @Test
+    void searchArtist() {
+    }
 
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/transaction")
 public class TransactionController {
 
     @Autowired
@@ -18,8 +17,14 @@ public class TransactionController {
         return transactionService.getTransaction(id);
     }
 
-    @PostMapping
+    @PostMapping("/transaction")
     public Transaction saveTransaction(@RequestBody Transaction transaction){
         return transactionService.saveTransaction(transaction);
     }
+
+    @DeleteMapping("/transaction/{id}")
+    public void deletTransaction(@PathVariable String id){
+        transactionService.deleteTransaction(id);
+    }
+
 }

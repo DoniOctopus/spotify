@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 
 @Entity
@@ -30,9 +31,8 @@ public class Transaction {
     private Wallet wallet;
 
 
-    public Transaction(Timestamp trxDate, Double albumDisc) {
-        this.trxDate = trxDate;
-        this.albumDisc = albumDisc;
+    public Transaction(Double amount) {
+        this.amount = amount;
     }
 
     public Transaction() {
@@ -93,5 +93,20 @@ public class Transaction {
                 ", trxDate=" + trxDate +
                 ", albumDisc=" + albumDisc +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return id.equals(that.id) &&
+                trxDate.equals(that.trxDate) &&
+                amount.equals(that.amount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, trxDate, amount);
     }
 }

@@ -30,9 +30,8 @@ public class WalletHistory {
     private Wallet wallet;
 
 
-    public WalletHistory(Double amount, Timestamp trxDate) {
+    public WalletHistory(Double amount) {
         this.amount = amount;
-        this.trxDate = trxDate;
     }
 
     public WalletHistory() {

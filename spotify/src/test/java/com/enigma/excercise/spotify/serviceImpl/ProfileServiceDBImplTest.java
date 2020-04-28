@@ -31,21 +31,21 @@ class ProfileServiceDBImplTest {
     }
 
     @Test
-    void saveSong_shouldAdd_1Data_inDB_whenSongSaved() {
+    void saveProfile_shouldAdd_1Data_inDB_whenProfileSaved() {
         Profile profile = new Profile("Danila",new Date());
         profileService.saveProfile(profile);
         assertEquals(1,profileRepository.findAll().size());
     }
 
     @Test
-    void getSong_ShouldThrowExecption_when_givenIdNotExist() {
+    void getProfile_ShouldThrowExecption_when_givenIdNotExist() {
         assertThrows(ResourceNotFoundExeption.class, () -> {
             profileService.getProfile("1");
         });
     }
 
     @Test
-    void deleteSong_shouldDelete_1Data_inDB_whenSongDeleted() {
+    void deleteProfile_shouldDelete_1Data_inDB_whenProfileDeleted() {
         Profile profile = new Profile("Danila",new Date());
         Profile profile1 = new Profile("Duta",new Date());
         profileRepository.save(profile);
@@ -55,7 +55,7 @@ class ProfileServiceDBImplTest {
     }
 
     @Test
-    void getAllSong_shouldBe_2InDB_whenDataInDBIs_2() {
+    void getAllProfile_shouldBe_2InDB_whenDataInDBIs_2() {
         Profile profile = new Profile("Danila",new Date());
         Profile profile1 = new Profile("Duta",new Date());
         profileRepository.save(profile);
@@ -64,7 +64,7 @@ class ProfileServiceDBImplTest {
     }
 
     @Test
-    void getSongByField_shouldGetSong_whenGivenSearchValue() {
+    void getProfileByField_shouldGetProfile_whenGivenSearchValue() {
         Profile profile = new Profile("Danila",new Date());
         Profile profile1 = new Profile("Duta",new Date());
         profileRepository.save(profile);
@@ -73,5 +73,9 @@ class ProfileServiceDBImplTest {
         profile2.setFirstName("Danila");
         profile2.setBirthDate(new Date());
         assertEquals(1, profileService.searchProfile(profile2, PageRequest.of(0,5)).getTotalElements());
+    }
+
+    @Test
+    void searchArtist() {
     }
 }

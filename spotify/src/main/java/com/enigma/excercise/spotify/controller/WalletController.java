@@ -14,6 +14,11 @@ public class WalletController {
     @Autowired
     WalletService walletService;
 
+    @PostMapping("/wallet")
+    public void saveWallet(@RequestBody Wallet wallet){
+        walletService.saveWallet(wallet);
+    }
+
     @GetMapping("/{id}")
     public Wallet getWalletById(@PathVariable(name = "id")String id){
         return walletService.getWallet(id);

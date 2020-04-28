@@ -58,6 +58,8 @@ class AccountServiceDBImplTest {
         accountRepository.save(account1);
         assertEquals(2, accountService.getAllAccount().size());
     }
-
+    @Test
+    void searchAccount() {
+    }
 
 }
